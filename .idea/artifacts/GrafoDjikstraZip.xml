@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="GrafoDjikstraZip">
+    <output-path>$PROJECT_DIR$/out/artifacts/GrafoDjikstraZip</output-path>
+    <root id="root">
+      <element id="archive" name="GrafoDjikstra.zip">
+        <element id="dir-copy" path="$PROJECT_DIR$" />
+      </element>
+    </root>
+  </artifact>
+</component>

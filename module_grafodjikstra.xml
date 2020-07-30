@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_grafodjikstra" default="compile.module.grafodjikstra">
+  <dirname property="module.grafodjikstra.basedir" file="${ant.file.module_grafodjikstra}"/>
+  
+  <property name="module.jdk.home.grafodjikstra" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.grafodjikstra" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.grafodjikstra" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.grafodjikstra" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="grafodjikstra.output.dir" value="${module.grafodjikstra.basedir}/out/production/GrafoDjikstra"/>
+  <property name="grafodjikstra.testoutput.dir" value="${module.grafodjikstra.basedir}/out/test/GrafoDjikstra"/>
+  
+  <path id="grafodjikstra.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="grafodjikstra.module.production.classpath">
+    <path refid="${module.jdk.classpath.grafodjikstra}"/>
+  </path>
+  
+  <path id="grafodjikstra.runtime.production.module.classpath">
+    <pathelement location="${grafodjikstra.output.dir}"/>
+  </path>
+  
+  <path id="grafodjikstra.module.classpath">
+    <path refid="${module.jdk.classpath.grafodjikstra}"/>
+    <pathelement location="${grafodjikstra.output.dir}"/>
+  </path>
+  
+  <path id="grafodjikstra.runtime.module.classpath">
+    <pathelement location="${grafodjikstra.testoutput.dir}"/>
+    <pathelement location="${grafodjikstra.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.grafodjikstra">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.grafodjikstra">
+    <patternset refid="excluded.from.module.grafodjikstra"/>
+  </patternset>
+  
+  <path id="grafodjikstra.module.sourcepath">
+    <dirset dir="${module.grafodjikstra.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.grafodjikstra" depends="compile.module.grafodjikstra.production,compile.module.grafodjikstra.tests" description="Compile module GrafoDjikstra"/>
+  
+  <target name="compile.module.grafodjikstra.production" depends="register.custom.compilers" description="Compile module GrafoDjikstra; production classes">
+    <mkdir dir="${grafodjikstra.output.dir}"/>
+    <javac2 destdir="${grafodjikstra.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.grafodjikstra}/javac">
+      <compilerarg line="${compiler.args.grafodjikstra}"/>
+      <bootclasspath refid="grafodjikstra.module.bootclasspath"/>
+      <classpath refid="grafodjikstra.module.production.classpath"/>
+      <src refid="grafodjikstra.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.grafodjikstra"/>
+    </javac2>
+    
+    <copy todir="${grafodjikstra.output.dir}">
+      <fileset dir="${module.grafodjikstra.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.grafodjikstra.tests" depends="register.custom.compilers,compile.module.grafodjikstra.production" description="compile module GrafoDjikstra; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.grafodjikstra" description="cleanup module">
+    <delete dir="${grafodjikstra.output.dir}"/>
+    <delete dir="${grafodjikstra.testoutput.dir}"/>
+  </target>
+</project>
