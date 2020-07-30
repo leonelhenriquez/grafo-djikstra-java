@@ -1,2 +1,2 @@
 # grafo-djikstra
-Grafo-Djikstra
+Grafo-Djikstra-Java
